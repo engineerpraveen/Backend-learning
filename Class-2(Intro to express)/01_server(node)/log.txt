@@ -8,3 +8,13 @@
 /favicon.ico Request recieved 
 /product?shoes=nike&id=9 Request recieved 
 /favicon.ico Request recieved 
+/product?shoes=nike&id=9 Request recieved 
+/favicon.ico Request recieved 
+/product?shoes=nike&id=9 Request recieved 
+/favicon.ico Request recieved 
+/product?shoes=nike&id=9 Request recieved 
+/favicon.ico Request recieved 
+/product?shoes=nike&id=9 Request recieved 
+/favicon.ico Request recieved 
+/product?shoes=nike&id=9 Request recieved 
+/favicon.ico Request recieved 

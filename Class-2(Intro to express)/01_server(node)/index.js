@@ -11,12 +11,12 @@ const myServer = http.createServer((req, res) =>{
 
 
     const parseurl = url.parse(req.url, true)
-    console.log([parseurl]);
+    console.log(parseurl);
     
     const log = `${req.url} Request recieved \n`;
 
     fs.appendFile("log.txt", log, (error, data)=>{
-        switch (req.url) {
+        switch (parseurl.pathname) {
             case "/":
                 res.end("This is home page");
                 break;
@@ -26,6 +26,10 @@ const myServer = http.createServer((req, res) =>{
             case "/contact":
                 res.end("This is contact page");
                 break;
+            case "/product":
+                const shoes = parseurl.query.shoes
+                res.end("This is product page "+"here are shoe " + shoes);
+                break;    
             default:
                 res.end("Not Found");
                 break; 
