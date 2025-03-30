@@ -1,17 +1,32 @@
-import React from 'react'
-import {Form , Input , Button} from 'antd'
-import {Link} from 'react-router-dom'
+import React from "react";
+import { Form, Input, Button, message } from "antd";
+import { Link } from "react-router-dom";
+import { loginUser } from "../apicalls/userApiCalls";
 
 function Login() {
+  const handleSubmit = async (values) => {
+    try {
+      const response = await loginUser(values);
+      if (response.success) {
+        message.success(response.message);
+        window.location.href = "/";
+      } else {
+        message.error(response.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-     <>
+    <>
       <header className="App-header">
         <main className="main-area mw-500 text-center px-3">
           <section className="left-section">
             <h1>Welcome back to BookMyShow</h1>
           </section>
           <section className="right-section">
-            <Form layout="vertical">
+            <Form layout="vertical" onFinish={handleSubmit}>
               <Form.Item
                 label="Email"
                 name="email"
@@ -57,8 +72,8 @@ function Login() {
           </section>
         </main>
       </header>
-     </>
-  )
+    </>
+  );
 }
 
-export default Login
+export default Login;

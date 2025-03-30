@@ -7,7 +7,7 @@ exports.registerUser = async (req, res) => {
     // @ts-ignore
     if (userExists) {
       res.send({
-        success: true,
+        success: false,
         message: "User already exists",
       });
     }
@@ -17,45 +17,38 @@ exports.registerUser = async (req, res) => {
 
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(req.body.password, salt);
-  //   console.log(hashedPassword);
-
   req.body.password = hashedPassword;
 
   // const user = await User(req.body);
   //const user = await User.create(req.body);
   const newUser = await new User(req.body);
-
   await newUser.save();
 
   res.send({
     success: true,
-    message: "registered successfully",
+    message: "Registered Successfully",
   });
 };
 
 exports.loginUser = async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
-
     if (!user) {
       return res.send({
         success: false,
-        message: "regiter first",
+        message: "Register First",
       });
     }
     const dbSavedPassword = user.password;
-
     const inputPassword = req.body.password;
-
     const isPasswordValid = await bcrypt.compare(
       inputPassword,
       dbSavedPassword
     );
-    console.log(isPasswordValid);
     if (!isPasswordValid) {
       return res.send({
         success: false,
-        message: "sorry, Invalid password entered",
+        message: "Sorry, Invalid password entered",
       });
     }
 
