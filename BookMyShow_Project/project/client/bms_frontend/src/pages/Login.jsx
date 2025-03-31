@@ -2,14 +2,22 @@ import React from "react";
 import { Form, Input, Button, message } from "antd";
 import { Link } from "react-router-dom";
 import { loginUser } from "../apicalls/userApiCalls";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/userSlice";
 
 function Login() {
+  const dispatch = useDispatch();
+
   const handleSubmit = async (values) => {
     try {
       const response = await loginUser(values);
       if (response.success) {
         message.success(response.message);
-        window.location.href = "/";
+        window.localStorage.setItem("token", response.token);
+        // console.log(response.user);
+
+        dispatch(setUser(response.user));
+        // window.location.href = "/";
       } else {
         message.error(response.message);
       }
